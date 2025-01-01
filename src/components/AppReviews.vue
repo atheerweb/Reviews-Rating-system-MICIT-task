@@ -2,7 +2,7 @@
 import AppReviewStars from '@/components/AppReviewStars.vue'
 </script>
 <template>
-  <div class="flex gap-5 items-start">
+  <div class="flex gap-5 items-start w-full">
     <img src="https://avatar.iran.liara.run/public/1" alt="customer" class="w-16" />
     <div class="w-full">
       <div class="flex items-center justify-between">

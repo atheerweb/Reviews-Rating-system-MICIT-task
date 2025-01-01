@@ -4,16 +4,13 @@ import AppReviews from '@/components/AppReviews.vue'
 </script>
 
 <template>
-  <main class="flex flex-col items-center lg:flex-row lg:gap-10 lg:items-start">
-    <aside class="w-full bg-[#F2F2F2] p-5 rounded-xl min-h-60">
-      <img
-        src="/dr-crz-jacket.png"
-        alt="pizza"
-        title="pizza"
-        class="w-full max-w-[400px] lg:w-[400px] m-auto"
-      />
+  <main class="grid grid-cols-12 gap-5">
+    <aside class="col-span-12 lg:col-span-4">
+      <div class="max-w-[400px] h-[400px] bg-[#F2F2F2] p-5 rounded-xl flex justify-self-center">
+        <img src="/dr-crz-jacket.png" alt="pizza" title="pizza" class="m-auto" />
+      </div>
     </aside>
-    <article>
+    <article class="col-span-12 lg:col-span-8">
       <section>
         <h1 class="mt-5 font-bold text-xl lg:text-2xl">DR CRZ Jacket</h1>
         <p class="text-gray-400 capitalize mt-1">leather jacket</p>
@@ -40,11 +37,40 @@ import AppReviews from '@/components/AppReviews.vue'
         <div class="flex items-center justify-between mt-10 mb-2">
           <h4 class="text-lg font-bold">Reviews <span class="font-normal">(1.2k)</span></h4>
           <button
-            class="bg-gray-200 text-gray-600 px-3 py-2 hover:bg-gray-300 hover:text-gray-800 text-base rounded-md transition-colors"
+            class="bg-zinc-800 text-white px-3 py-2 hover:bg-zinc-950 text-base rounded-md transition-colors"
           >
             see more
           </button>
         </div>
+        <section
+          class="overflow-x-auto w-[calc(100vw-3rem)] lg:w-auto h-12 overflow-y-hidden py-2 whitespace-nowrap"
+        >
+          <div class="w-[35rem]">
+            <button
+              class="rounded-full mx-1 bg-zinc-800 text-white text-center py-1 px-3 capitalize cursor-pointer inline-block w-auto"
+            >
+              all
+            </button>
+            <button
+              class="rounded-full mx-1 border-gray-200 border text-gray-500 text-center py-1 px-3 cursor-pointer inline-block"
+            >
+              newest
+            </button>
+            <button
+              class="rounded-full mx-1 border-gray-200 border text-gray-500 text-center py-1 px-3 cursor-pointer inline-block"
+            >
+              oldest
+            </button>
+            <button
+              v-for="n in 5"
+              :key="n"
+              class="rounded-full mx-1 border-gray-200 border text-gray-500 text-center py-1 px-3 cursor-pointer inline-block"
+            >
+              <v-icon name="fa-star" fill="orange" />
+              {{ n }}
+            </button>
+          </div>
+        </section>
         <section class="flex flex-col gap-8 mt-10">
           <AppReviews v-for="n in 5" :key="n" />
         </section>
