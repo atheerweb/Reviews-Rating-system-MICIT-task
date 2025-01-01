@@ -6,8 +6,8 @@ import AppReviews from '@/components/AppReviews.vue'
 <template>
   <main class="grid grid-cols-12 gap-5">
     <aside class="col-span-12 lg:col-span-4">
-      <div class="max-w-[400px] h-[400px] bg-[#F2F2F2] p-5 rounded-xl flex justify-self-center">
-        <img src="/dr-crz-jacket.png" alt="pizza" title="pizza" class="m-auto" />
+      <div class="max-w-[400px] max-h-[400px] aspect-square bg-[#F2F2F2] p-5 rounded-xl flex justify-self-center">
+        <img src="/dr-crz-jacket.png" alt="pizza" title="pizza" class="object-contain mx-auto" />
       </div>
     </aside>
     <article class="col-span-12 lg:col-span-8">
