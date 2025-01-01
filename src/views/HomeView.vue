@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import AppReviews from '@/components/AppReviews.vue'
-import ProductReviewForm from '@/components/forms/HomeView/ProductReviewForm.vue'
-import HomeProductCard from '@/components/views/HomeView/HomeProductCard.vue'
-import HomeProductData from '@/components/views/HomeView/HomeProductData.vue'
+import ProductCard from '@/features/product/components/ProductCard.vue';
+import ProductData from '@/features/product/components/ProductData.vue';
+import AppReviews from '@/features/reviews/components/UserReviews.vue';
+import ProductReviewForm from '@/features/reviews/components/ProductReviewForm.vue';
+
+
+
+
 const productData = {
   title: 'Dr Crz Jacket',
   category: 'leather jacket',
@@ -17,14 +21,14 @@ const productData = {
 <template>
   <main class="grid grid-cols-12 gap-5">
     <aside class="col-span-12 lg:col-span-4">
-      <HomeProductCard image="/dr-crz-jacket.png" />
+      <ProductCard image="/dr-crz-jacket.png" />
     </aside>
     <article class="col-span-12 lg:col-span-8">
       <section>
-        <HomeProductData v-bind="productData" />
+        <ProductData v-bind="productData" />
       </section>
 
-      <section class="fixed  w-full h-full bg-[rgba(0,0,0,0.5)] top-0 left-0">
+      <section class="fixed w-full h-full bg-[rgba(0,0,0,0.5)] top-0 left-0">
         <ProductReviewForm />
       </section>
       <section>
