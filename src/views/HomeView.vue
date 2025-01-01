@@ -5,6 +5,8 @@ import UserReviews from '@/features/reviews/components/UserReviews.vue'
 import ReviewForm from '@/features/reviews/components/ReviewForm.vue'
 import AppModal from '@/components/AppModal.vue'
 import AppButton from '@/components/AppButton.vue'
+import ReviewFilters from '@/features/reviews/components/ReviewFilters.vue'
+import { ref } from 'vue'
 
 const productData = {
   title: 'Dr Crz Jacket',
@@ -15,6 +17,8 @@ const productData = {
   totalReviews: 5,
   avgNumberReview: 4.5,
 }
+
+const activeFilter = ref('all')
 </script>
 
 <template>
@@ -52,31 +56,7 @@ const productData = {
         <section
           class="overflow-x-auto w-[calc(100vw-3rem)] lg:w-auto h-12 overflow-y-hidden py-2 whitespace-nowrap"
         >
-          <div class="w-[35rem]">
-            <button
-              class="rounded-full mx-1 bg-zinc-800 text-white text-center py-1 px-3 capitalize cursor-pointer inline-block w-auto"
-            >
-              all
-            </button>
-            <button
-              class="rounded-full mx-1 border-gray-200 border text-gray-500 text-center py-1 px-3 cursor-pointer inline-block"
-            >
-              newest
-            </button>
-            <button
-              class="rounded-full mx-1 border-gray-200 border text-gray-500 text-center py-1 px-3 cursor-pointer inline-block"
-            >
-              oldest
-            </button>
-            <button
-              v-for="n in 5"
-              :key="n"
-              class="rounded-full mx-1 border-gray-200 border text-gray-500 text-center py-1 px-3 cursor-pointer inline-block"
-            >
-              <v-icon name="fa-star" fill="orange" />
-              {{ n }}
-            </button>
-          </div>
+          <ReviewFilters v-model="activeFilter" />
         </section>
         <section class="flex flex-col gap-8 mt-10">
           <UserReviews v-for="n in 5" :key="n" />
