@@ -1,8 +1,8 @@
-<script setup lang="ts">
-defineProps<{ label: string }>()
-</script>
+<script setup lang="ts"></script>
 <template>
-  <button class="secondary-button">{{ label }}</button>
+  <button class="secondary-button">
+    <slot />
+  </button>
 </template>
 
 <style scoped>

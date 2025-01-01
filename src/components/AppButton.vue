@@ -1,11 +1,8 @@
-<script setup lang="ts">
-defineProps<{ label: string }>()
-</script>
 
 
 <template>
   <button type="submit" class="app-button">
-    {{ label }}
+    <slot />
   </button>
 </template>
 

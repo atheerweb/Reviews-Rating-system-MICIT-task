@@ -4,6 +4,7 @@ import ProductData from '@/features/product/components/ProductData.vue'
 import UserReviews from '@/features/reviews/components/UserReviews.vue'
 import ReviewForm from '@/features/reviews/components/ReviewForm.vue'
 import AppModal from '@/components/AppModal.vue'
+import AppButton from '@/components/AppButton.vue'
 
 const productData = {
   title: 'Dr Crz Jacket',
@@ -14,8 +15,6 @@ const productData = {
   totalReviews: 5,
   avgNumberReview: 4.5,
 }
-
-
 </script>
 
 <template>
@@ -28,9 +27,6 @@ const productData = {
         <ProductData v-bind="productData" />
       </section>
 
-      <AppModal title="Write a Review">
-        <ReviewForm />
-      </AppModal>
       <section>
         <div class="flex items-center justify-between mt-10 mb-2 gap-5 flex-wrap">
           <h4 class="text-lg font-bold flex-grow">
@@ -43,13 +39,14 @@ const productData = {
           <div
             class="bg-white lg:bg-transparent shadow-xl lg:shadow-none shadow-black w-full lg:w-auto lg:static fixed bottom-0 left-0 h-auto py-6 lg:p-0 px-4 flex items-end"
           >
-            <button
-              type="submit"
-              dir="ltr"
-              class="bg-zinc-800 lg:rounded-md lg:w-auto float-end text-white px-3 py-2 hover:bg-zinc-950 text-base rounded-full transition-colors w-full mt-1"
-            >
-              submit your review
-            </button>
+            <AppModal title="Write your Review">
+              <template #activator>
+                <AppButton>Rate and Review</AppButton>
+              </template>
+              <template #body>
+                <ReviewForm />
+              </template>
+            </AppModal>
           </div>
         </div>
         <section
