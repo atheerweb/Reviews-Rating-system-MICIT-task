@@ -87,7 +87,7 @@ import AppReviews from '@/components/AppReviews.vue'
           </button>
 
           <div
-            class="bg-white lg:bg-transparent shadow-2xl lg:shadow-none  shadow-black w-full lg:w-auto lg:static fixed bottom-0 left-0 h-auto py-6 lg:p-0 px-4 flex items-end"
+            class="bg-white lg:bg-transparent shadow-xl lg:shadow-none  shadow-black w-full lg:w-auto lg:static fixed bottom-0 left-0 h-auto py-6 lg:p-0 px-4 flex items-end"
           >
             <button
               type="submit"
