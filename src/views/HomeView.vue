@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import ProductCard from '@/features/product/components/ProductCard.vue';
-import ProductData from '@/features/product/components/ProductData.vue';
-import AppReviews from '@/features/reviews/components/UserReviews.vue';
-import ProductReviewForm from '@/features/reviews/components/ProductReviewForm.vue';
-
-
-
+import ProductCard from '@/features/product/components/ProductCard.vue'
+import ProductData from '@/features/product/components/ProductData.vue'
+import UserReviews from '@/features/reviews/components/UserReviews.vue'
+import ReviewForm from '@/features/reviews/components/ReviewForm.vue'
+import AppModal from '@/components/AppModal.vue'
 
 const productData = {
   title: 'Dr Crz Jacket',
@@ -16,6 +14,8 @@ const productData = {
   totalReviews: 5,
   avgNumberReview: 4.5,
 }
+
+
 </script>
 
 <template>
@@ -28,9 +28,9 @@ const productData = {
         <ProductData v-bind="productData" />
       </section>
 
-      <section class="fixed w-full h-full bg-[rgba(0,0,0,0.5)] top-0 left-0">
-        <ProductReviewForm />
-      </section>
+      <AppModal title="Write a Review">
+        <ReviewForm />
+      </AppModal>
       <section>
         <div class="flex items-center justify-between mt-10 mb-2 gap-5 flex-wrap">
           <h4 class="text-lg font-bold flex-grow">
@@ -82,7 +82,7 @@ const productData = {
           </div>
         </section>
         <section class="flex flex-col gap-8 mt-10">
-          <AppReviews v-for="n in 5" :key="n" />
+          <UserReviews v-for="n in 5" :key="n" />
         </section>
       </section>
     </article>
