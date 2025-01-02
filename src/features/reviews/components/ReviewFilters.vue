@@ -1,28 +1,25 @@
 <script setup lang="ts">
-import ReviewFilter from './ReviewFilter.vue'
+import AppFilterGroup from '@/components/AppFilterGroup.vue'
+import AppFilter from '@/components/AppFilter.vue';
+import { ref } from 'vue';
 
 const filters = ['all', 'newest', 'oldest']
 
 
-const model = defineModel<string>()
-
-const update = (filter: string) => {
-  model.value = filter
-}
-
-const checkIsActive = (filter: string) => model.value === filter
+const activeFilter = ref('all')
 </script>
 
 <template>
-  <div id="filters-wrapper">
-    <ReviewFilter v-for="filter in filters" :key="filter" :is-active="checkIsActive(filter)" @activate="update(filter)">
+  <AppFilterGroup v-model="activeFilter" id="filters-wrapper">
+    <AppFilter v-for="filter in filters" :key="filter" :value="filter">
       {{ filter }}
-    </ReviewFilter>
-    <ReviewFilter v-for="n in 5" :key="n" :is-active="checkIsActive(`${n}`)" @activate="update(`${n}`)">
+    </AppFilter>
+    <AppFilter v-for="n in 5" :key="n" :value="`${n}`">
       <v-icon name="fa-star" fill="orange" />
       {{ n }}
-    </ReviewFilter>
-  </div>
+    </AppFilter>
+  </AppFilterGroup>
+
 </template>
 
 <style scoped>
