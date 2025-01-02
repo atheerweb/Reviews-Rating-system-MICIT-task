@@ -31,7 +31,7 @@ defineProps<{
   @apply flex gap-5 items-start w-full;
 }
 .user-image {
-  @apply w-16;
+  @apply w-16 rounded-full;
 }
 .review-content {
   @apply w-full;

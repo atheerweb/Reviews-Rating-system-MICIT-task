@@ -1,7 +1,7 @@
 export interface userReview {
-  id: number
+  id: string
   image: string
   name: string
-  date: string
+  date: Date
   review: string
 }
