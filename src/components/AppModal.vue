@@ -20,7 +20,7 @@ const closeModal = () => {
 
 <template>
   <!-- Activator wrapper - clicking this opens the modal -->
-  <div @click="isVisible = true">
+  <div class="w-full" @click="isVisible = true">
     <!-- Slot for custom activator content -->
     <slot name="activator" />
   </div>
