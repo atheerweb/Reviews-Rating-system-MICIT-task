@@ -21,17 +21,25 @@ const productData = {
   totalReviews: 5,
   avgNumberReview: 4.5,
 }
+
+// Mock User Review object containing user review details
+const userReview = {
+  image: 'https://avatar.iran.liara.run/public/1',
+  name: 'David Mendenz',
+  date: 'Today',
+  review: "Absolutely love the jacket it's so comfortable and stylish,Great purchase Absolutely love the jacket it's so comfortable and stylish,Great purchase Absolutely love the jacket it's so comfortable and stylish,Great purchase",
+}
 </script>
 
 <template>
   <!-- Main container with responsive grid layout -->
-  <main class="grid grid-cols-12 gap-5">
+  <main id="product-container">
     <!-- Product image section -->
-    <aside class="col-span-12 lg:col-span-4">
+    <aside id="product-image">
       <ProductCard image="/dr-crz-jacket.png" />
     </aside>
     <!-- Product details and reviews section-->
-    <article class="col-span-12 lg:col-span-8">
+    <article id="product-details">
       <!-- Product information section -->
       <section>
         <ProductData v-bind="productData" />
@@ -58,7 +66,7 @@ const productData = {
 
         <!-- User reviews list -->
         <section id="user-reviews">
-          <UserReviews v-for="n in 5" :key="n" />
+          <UserReviews v-for="n in 5" :key="n" v-bind="userReview" />
         </section>
       </section>
     </article>
@@ -80,5 +88,19 @@ const productData = {
 
 #reviews-header {
   @apply flex items-center justify-between mt-10 mb-2 gap-5 flex-wrap;
+}
+
+
+#product-details {
+  @apply col-span-12 lg:col-span-8;
+}
+
+
+#product-image {
+  @apply col-span-12 lg:col-span-4;
+}
+
+#product-container {
+  @apply grid grid-cols-12 gap-5;
 }
 </style>

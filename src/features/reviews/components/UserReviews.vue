@@ -1,22 +1,54 @@
 <script setup lang="ts">
 import AppReviewStars from '@/components/AppReviewStars.vue'
+
+defineProps<{
+  name: string
+  date: string
+  // rating: number
+  review: string
+  image: string
+}>()
 </script>
+
 <template>
-  <div class="flex gap-5 items-start w-full">
-    <img src="https://avatar.iran.liara.run/public/1" alt="customer" class="w-16" />
-    <div class="w-full">
-      <div class="flex items-center justify-between">
-        <strong class="block">David Mendenz</strong>
-        <p class="text-gray-400">Today</p>
-      </div>
-      <app-review-stars class="mt-2 mb-1" />
-      <p class="text-gray-400">
-        Absolutely love the jacket it's so comfortable and stylish,Great purchase
-        Absolutely love the jacket it's so comfortable and stylish,Great purchase
-        Absolutely love the jacket it's so comfortable and stylish,Great purchase
+  <section class="user-review">
+    <img :src="image" alt="customer" class="user-image" />
+    <section class="review-content">
+      <header class="review-header">
+        <strong class="review-title">{{ name }}</strong>
+        <p class="review-date">{{ date }}</p>
+      </header>
+      <app-review-stars class="user-review-stars" />
+      <p class="review-text">
+        {{ review }}
       </p>
-    </div>
-  </div>
+    </section>
+  </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.user-review {
+  @apply flex gap-5 items-start w-full;
+}
+.user-image {
+  @apply w-16;
+}
+.review-content {
+  @apply w-full;
+}
+.review-header {
+  @apply flex items-center justify-between;
+}
+.review-title {
+  @apply block;
+}
+.review-date {
+  @apply text-gray-400;
+}
+.user-review-stars {
+  @apply mt-2 mb-1;
+}
+.review-text {
+  @apply text-gray-400;
+}
+</style>
