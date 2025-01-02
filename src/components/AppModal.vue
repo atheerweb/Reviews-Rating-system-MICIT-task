@@ -40,7 +40,7 @@ const closeModal = () => {
         <slot name="body" />
 
         <!-- Action buttons -->
-        <AppButton @submit="$emit('submit')"> submit your review </AppButton>
+        <AppButton type="submit" form="form"> submit your review </AppButton>
         <AppSecondaryButton @click="closeModal" class="w-full"> cancel </AppSecondaryButton>
       </div>
     </section>

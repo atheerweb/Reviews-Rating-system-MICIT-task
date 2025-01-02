@@ -14,15 +14,15 @@ export const useUserReviewsStore = defineStore('userReviews', () => {
     return paginate<userReview>(userReviews.value, currentPage.value, perPage.value)
   })
 
-  // const totalPages = computed(() => {
-  //   return Math.ceil(userReviews.value.length / perPage.value)
-  // })
-
-  // const
-
   const nextPage = () => {
     currentPage.value++
   }
 
-  return { userReviewsData, nextPage }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const addReview = (review: any) => {
+    console.log('Adding review', review)
+    userReviews.value.unshift(review)
+  }
+
+  return { userReviewsData, nextPage, addReview }
 })
