@@ -1,25 +1,39 @@
 <script setup lang="ts">
 import AppReviewStars from '@/components/AppReviewStars.vue'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
+import { useForm } from 'vee-validate'
 
-const formData = reactive({
-  rating: 0,
-  name: '',
-  review: '',
-})
+interface FormData {
+  rating: number
+  name: string
+  review: string
+}
 
-defineEmits<{
-  (e: 'onSubmit', data: typeof formData): void
+const { defineField, resetForm, values } = useForm<FormData>()
+
+const [rating, ratingAttrs] = defineField('rating')
+const [name, nameAttrs] = defineField('name')
+const [review, reviewAttrs] = defineField('review')
+
+const emit = defineEmits<{
+  (e: 'onSubmit', data: FormData): void
 }>()
+
+const onSubmit = () => {
+  emit('onSubmit', values)
+  resetForm()
+}
 </script>
 
 <template>
-  <form id="form" @submit.prevent="$emit('onSubmit', formData)">
+  <form ref="form" id="form" @submit.prevent="onSubmit">
+    {{ values }}
     <label for="rating">Rating:</label>
-    <AppReviewStars v-model="formData.rating" class="mb-3 mt-1" />
+    <AppReviewStars v-model="rating" v-bind="ratingAttrs" class="mb-3 mt-1" />
     <label for="name">Name:</label>
     <input
-      v-model="formData.name"
+      v-model="name"
+      v-bind="nameAttrs"
       name="name"
       id="name"
       placeholder="write your review here..."
@@ -27,7 +41,8 @@ defineEmits<{
     />
     <label for="description">Description:</label>
     <textarea
-      v-model="formData.review"
+      v-model="review"
+      v-bind="reviewAttrs"
       name="description"
       id="description"
       placeholder="write your review here..."

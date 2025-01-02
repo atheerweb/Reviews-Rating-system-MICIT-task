@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { computed, ref, toRaw, unref } from 'vue'
 import { defineStore } from 'pinia'
 import { type userReview } from '../types/userReview'
 import { paginate } from '@/utils/paginate'
@@ -20,7 +20,6 @@ export const useUserReviewsStore = defineStore('userReviews', () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const addReview = (review: any) => {
-    console.log('Adding review', review)
     userReviews.value.unshift(review)
   }
 

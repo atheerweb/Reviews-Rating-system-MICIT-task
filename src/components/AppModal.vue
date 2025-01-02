@@ -40,8 +40,10 @@ const closeModal = () => {
         <slot name="body" />
 
         <!-- Action buttons -->
-        <AppButton type="submit" form="form"> submit your review </AppButton>
-        <AppSecondaryButton @click="closeModal" class="w-full"> cancel </AppSecondaryButton>
+        <div @click="closeModal">
+          <AppButton type="submit" form="form"> submit your review </AppButton>
+          <AppSecondaryButton class="w-full"> cancel </AppSecondaryButton>
+        </div>
       </div>
     </section>
   </Transition>
