@@ -1,5 +1,8 @@
 <script setup lang="ts">
+// Import Store data
 import { useUserReviewsStore } from '@/features/reviews/stores/userReviews'
+import { useProductDataStore } from '@/features/product/stores/product'
+
 // Import product-related components
 import ProductCard from '@/features/product/components/ProductCard.vue'
 import ProductData from '@/features/product/components/ProductData.vue'
@@ -13,20 +16,11 @@ import ReviewModal from '@/features/reviews/components/ReviewModal.vue'
 import AppSecondaryButton from '@/components/AppSecondaryButton.vue'
 import { storeToRefs } from 'pinia'
 
-// Mock product data object containing product details and review statistics
-const productData = {
-  title: 'Dr Crz Jacket',
-  category: 'leather jacket',
-  description:
-    'The \"DR CRZ Jacket\" is a stylish and versatile piece of outerwear designed to provide both fashion and functionality. Crafted with attention to detail The \"DR CRZ Jacket\" is a stylish and versatile piece of outerwear designed to provide both fashion and functionality. Crafted with attention to detail The \"DR CRZ Jacket\" is a stylish and versatile piece of outerwear designed to provide both fashion and functionality. Crafted with attention to detail The \"DR CRZ Jacket\" is a stylish and versatile piece of outerwear designed to provide both fashion and functionality. Crafted with attention to detail',
-  price: 69,
-  totalReviews: 5,
-  avgNumberReview: 4.5,
-}
-
+const { productData } = useProductDataStore()
 const store = useUserReviewsStore()
 const { userReviewsData } = storeToRefs(store)
 const { nextPage } = store
+const { image, ...productInfo } = productData
 </script>
 
 <template>
@@ -34,13 +28,13 @@ const { nextPage } = store
   <main id="product-container">
     <!-- Product image section -->
     <aside id="product-image">
-      <ProductCard image="/dr-crz-jacket.png" />
+      <ProductCard :image="image" />
     </aside>
     <!-- Product details and reviews section-->
     <article id="product-details">
       <!-- Product information section -->
       <section>
-        <ProductData v-bind="productData" />
+        <ProductData v-bind="productInfo" />
       </section>
 
       <!-- Reviews section -->
