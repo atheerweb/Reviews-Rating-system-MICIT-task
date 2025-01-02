@@ -5,6 +5,7 @@ import AppSecondaryButton from './AppSecondaryButton.vue'
 
 defineProps<{
   title: string
+  formId?: string
 }>()
 
 const isVisible = ref(false)
@@ -41,7 +42,7 @@ const closeModal = () => {
 
         <!-- Action buttons -->
         <div @click="closeModal">
-          <AppButton type="submit" form="form"> submit your review </AppButton>
+          <AppButton type="submit" :form="formId"> submit your review </AppButton>
           <AppSecondaryButton class="w-full"> cancel </AppSecondaryButton>
         </div>
       </div>

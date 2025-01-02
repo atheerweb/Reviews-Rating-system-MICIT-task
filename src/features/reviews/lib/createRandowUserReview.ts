@@ -1,4 +1,4 @@
-import type { userReview } from '@/features/reviews/types/userReview'
+import type { userReview } from '@/features/reviews/types/UserReview'
 import { faker } from '@faker-js/faker'
 
 export const createRandomUserReview = (): userReview => {

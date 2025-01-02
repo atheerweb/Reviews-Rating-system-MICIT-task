@@ -1,4 +1,4 @@
-export interface userReview {
+export interface UserReview {
   id: string
   image: string
   name: string

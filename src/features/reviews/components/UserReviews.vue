@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import AppReviewStars from '@/components/AppReviewStars.vue'
-import type { userReview } from '../types/userReview'
+import type { UserReview } from '../types/userReview'
 
-defineProps<userReview>()
+defineProps<UserReview>()
 </script>
 
 <template>
