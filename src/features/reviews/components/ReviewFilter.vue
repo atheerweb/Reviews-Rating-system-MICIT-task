@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 defineProps<{ isActive: boolean }>()
 
 defineEmits<{ (e: 'activate'): void }>()

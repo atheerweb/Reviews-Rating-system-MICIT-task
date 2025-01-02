@@ -1,20 +1,27 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import ReviewFilter from './ReviewFilter.vue'
-import ReviewStarsFilters from './ReviewStarsFilters.vue'
-import ReviewDateFilters from './ReviewDateFilters.vue'
 
-const activeFilter = defineModel<string>({ default: 'all' })
+const filters = ['all', 'newest', 'oldest']
 
-const setActiveFilter = (filter: string) => {
-  activeFilter.value = filter
+
+const model = defineModel<string>()
+
+const update = (filter: string) => {
+  model.value = filter
 }
+
+const checkIsActive = (filter: string) => model.value === filter
 </script>
 
 <template>
   <div id="filters-wrapper">
-    <ReviewDateFilters />
-    <ReviewStarsFilters />
+    <ReviewFilter v-for="filter in filters" :key="filter" :is-active="checkIsActive(filter)" @activate="update(filter)">
+      {{ filter }}
+    </ReviewFilter>
+    <ReviewFilter v-for="n in 5" :key="n" :is-active="checkIsActive(`${n}`)" @activate="update(`${n}`)">
+      <v-icon name="fa-star" fill="orange" />
+      {{ n }}
+    </ReviewFilter>
   </div>
 </template>
 
