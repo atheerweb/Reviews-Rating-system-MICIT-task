@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, Transition } from 'vue'
 import AppButton from './AppButton.vue'
 import AppSecondaryButton from './AppSecondaryButton.vue'
 
@@ -25,24 +25,28 @@ const closeModal = () => {
     <slot name="activator" />
   </div>
 
-  <!-- Modal overlay - only shown when modal is true -->
-  <section v-show="isVisible" id="modal-wrapper">
-    <!-- Modal content card -->
-    <div id="modal-card">
-      <!-- Close icon in top-right corner -->
-      <v-icon name="io-close" id="close-icon" @click="closeModal()" />
+  <Transition name="modal">
 
-      <!-- Modal title from props -->
-      <h4 id="modal-title">{{ title }}</h4>
+    <!-- Modal overlay - only shown when modal is true -->
+    <section v-show="isVisible" id="modal-wrapper">
+      <!-- Modal content card -->
+      <div id="modal-card">
+        <!-- Close icon in top-right corner -->
+        <v-icon name="io-close" id="close-icon" @click="closeModal()" />
 
-      <!-- Slot for main modal content -->
-      <slot name="body" />
+        <!-- Modal title from props -->
+        <h4 id="modal-title">{{ title }}</h4>
 
-      <!-- Action buttons -->
-      <AppButton @submit="$emit('submit')"> submit your review </AppButton>
-      <AppSecondaryButton @click="closeModal()"> cancel </AppSecondaryButton>
-    </div>
-  </section>
+        <!-- Slot for main modal content -->
+        <slot name="body" />
+
+        <!-- Action buttons -->
+        <AppButton @submit="$emit('submit')"> submit your review </AppButton>
+        <AppSecondaryButton @click="closeModal()"> cancel </AppSecondaryButton>
+      </div>
+    </section>
+  </Transition>
+
 </template>
 
 <style scoped>
@@ -60,6 +64,18 @@ const closeModal = () => {
 
 /* Modal overlay wrapper styling */
 #modal-wrapper {
-  @apply fixed w-full h-full bg-[rgba(0,0,0,0.5)] top-0 left-0;
+  @apply fixed w-full h-full top-0 left-0 bg-opaque;
+}
+
+
+.modal-enter-active,
+.modal-leave-active {
+  @apply transition-all duration-500
+}
+
+.modal-enter-from,
+.modal-leave-to {
+
+  @apply opacity-0 blur-lg;
 }
 </style>
