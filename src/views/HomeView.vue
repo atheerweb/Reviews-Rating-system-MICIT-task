@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useUserReviewsStore } from '@/features/reviews/stores/userReviews'
 // Import product-related components
 import ProductCard from '@/features/product/components/ProductCard.vue'
 import ProductData from '@/features/product/components/ProductData.vue'
@@ -10,6 +11,7 @@ import ReviewModal from '@/features/reviews/components/ReviewModal.vue'
 
 // Import shared UI components
 import AppSecondaryButton from '@/components/AppSecondaryButton.vue'
+import { storeToRefs } from 'pinia'
 
 // Mock product data object containing product details and review statistics
 const productData = {
@@ -22,13 +24,9 @@ const productData = {
   avgNumberReview: 4.5,
 }
 
-// Mock User Review object containing user review details
-const userReview = {
-  image: 'https://avatar.iran.liara.run/public/1',
-  name: 'David Mendenz',
-  date: 'Today',
-  review: "Absolutely love the jacket it's so comfortable and stylish,Great purchase Absolutely love the jacket it's so comfortable and stylish,Great purchase Absolutely love the jacket it's so comfortable and stylish,Great purchase",
-}
+const store = useUserReviewsStore()
+const { userReviewsData } = storeToRefs(store)
+const { nextPage } = store
 </script>
 
 <template>
@@ -52,7 +50,7 @@ const userReview = {
           <h4 class="text-lg font-bold flex-grow">
             Reviews <span class="font-normal">({{ productData.totalReviews }})</span>
           </h4>
-          <AppSecondaryButton>see more</AppSecondaryButton>
+          <AppSecondaryButton @click="nextPage">see more</AppSecondaryButton>
           <!-- Modal container -->
           <div id="reviews-modal-container">
             <ReviewModal />
@@ -66,7 +64,11 @@ const userReview = {
 
         <!-- User reviews list -->
         <section id="user-reviews">
-          <UserReviews v-for="n in 5" :key="n" v-bind="userReview" />
+          <UserReviews
+            v-for="userReview in userReviewsData"
+            :key="userReview.id"
+            v-bind="userReview"
+          />
         </section>
       </section>
     </article>
@@ -90,11 +92,9 @@ const userReview = {
   @apply flex items-center justify-between mt-10 mb-2 gap-5 flex-wrap;
 }
 
-
 #product-details {
   @apply col-span-12 lg:col-span-8;
 }
-
 
 #product-image {
   @apply col-span-12 lg:col-span-4;
