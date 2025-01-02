@@ -26,13 +26,12 @@ const closeModal = () => {
   </div>
 
   <Transition name="modal">
-
     <!-- Modal overlay - only shown when modal is true -->
     <section v-show="isVisible" id="modal-wrapper">
       <!-- Modal content card -->
       <div id="modal-card">
         <!-- Close icon in top-right corner -->
-        <v-icon name="io-close" id="close-icon" @click="closeModal()" />
+        <v-icon name="io-close" id="close-icon" @click="closeModal" />
 
         <!-- Modal title from props -->
         <h4 id="modal-title">{{ title }}</h4>
@@ -42,11 +41,10 @@ const closeModal = () => {
 
         <!-- Action buttons -->
         <AppButton @submit="$emit('submit')"> submit your review </AppButton>
-        <AppSecondaryButton @click="closeModal()"> cancel </AppSecondaryButton>
+        <AppSecondaryButton @click="closeModal" class="w-full"> cancel </AppSecondaryButton>
       </div>
     </section>
   </Transition>
-
 </template>
 
 <style scoped>
@@ -67,15 +65,13 @@ const closeModal = () => {
   @apply fixed w-full h-full top-0 left-0 bg-opaque;
 }
 
-
 .modal-enter-active,
 .modal-leave-active {
-  @apply transition-all duration-500
+  @apply transition-all duration-500;
 }
 
 .modal-enter-from,
 .modal-leave-to {
-
   @apply opacity-0 blur-lg;
 }
 </style>

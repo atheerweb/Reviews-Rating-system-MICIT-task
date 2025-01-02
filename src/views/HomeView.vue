@@ -79,7 +79,7 @@ const userReview = {
 }
 
 #reviews-filters {
-  @apply overflow-x-auto w-[calc(100vw-3rem)] lg:w-auto h-12 overflow-y-hidden py-2 whitespace-nowrap;
+  @apply overflow-x-auto w-[calc(100vw-3rem)] lg:w-auto h-14 overflow-y-hidden py-2 whitespace-nowrap;
 }
 
 #reviews-modal-container {
