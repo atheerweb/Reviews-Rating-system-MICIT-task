@@ -8,5 +8,6 @@ export const createRandomUserReview = (): userReview => {
     name: faker.person.firstName(),
     date: faker.date.recent(),
     review: faker.lorem.paragraph(),
+    rating: faker.number.int(5),
   }
 }

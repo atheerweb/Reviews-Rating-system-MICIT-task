@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import AppReviewStars from '@/components/AppReviewStars.vue'
+import type { userReview } from '../types/userReview'
 
-defineProps<{
-  name: string
-  date: string
-  // rating: number
-  review: string
-  image: string
-}>()
+defineProps<userReview>()
 </script>
 
 <template>
@@ -18,7 +13,7 @@ defineProps<{
         <strong class="review-title">{{ name }}</strong>
         <p class="review-date">{{ date }}</p>
       </header>
-      <app-review-stars class="user-review-stars" />
+      <app-review-stars :model-value="rating" class="user-review-stars" readonly />
       <p class="review-text">
         {{ review }}
       </p>

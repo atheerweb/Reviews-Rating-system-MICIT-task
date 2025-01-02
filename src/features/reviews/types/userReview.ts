@@ -4,4 +4,5 @@ export interface userReview {
   name: string
   date: Date
   review: string
+  rating: number
 }

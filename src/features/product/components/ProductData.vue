@@ -14,7 +14,7 @@ defineProps<{
   <p id="product-category">{{ category }}</p>
 
   <div id="product-reviews">
-    <app-review-stars />
+    <app-review-stars :model-value="avgNumberReview" readonly />
     <strong>{{ avgNumberReview }}</strong>
     <span id="product-reviews-stars"> ({{ totalReviews }} Reviews)</span>
   </div>

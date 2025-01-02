@@ -5,7 +5,7 @@ import AppReviewStars from '@/components/AppReviewStars.vue'
 <template>
   <form action="">
     <label for="rating">Rating:</label>
-    <AppReviewStars class="mb-3 mt-1" />
+    <AppReviewStars :rating="0" class="mb-3 mt-1" />
     <label for="name">Name:</label>
     <input
       name="name"
