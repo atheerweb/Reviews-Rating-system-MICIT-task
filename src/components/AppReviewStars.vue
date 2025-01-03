@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import { useField } from 'vee-validate'
+import AppErrorMsg from './AppErrorMsg.vue'
+
 const props = withDefaults(
   defineProps<{
     readonly?: boolean
+    name: string
   }>(),
   {
     readonly: false,
@@ -12,18 +16,21 @@ const model = defineModel<number>({
   default: 0,
 })
 
+const { value, errorMessage } = useField<number>(() => props.name)
+
 const setFillColor = (star: number) => {
-  return model.value >= star ? 'orange' : 'lightGray'
+  return value.value >= star ? 'orange' : 'lightGray'
 }
 
 const update = (star: number) => {
   if (props.readonly) return
-  model.value = star
+  value.value = star
 }
 </script>
 
 <template>
   <div>
+    <label :for="props.name" class="block">{{ props.name }}</label>
     <v-icon
       v-for="n in 5"
       :key="n"
@@ -32,6 +39,7 @@ const update = (star: number) => {
       @click="update(n)"
       :class="['review-star', { 'review-star--readonly': props.readonly }]"
     />
+    <AppErrorMsg v-show="errorMessage" :errorMessage />
   </div>
 </template>
 

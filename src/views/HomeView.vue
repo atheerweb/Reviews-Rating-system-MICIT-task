@@ -14,6 +14,7 @@ import ReviewModal from '@/features/reviews/components/ReviewModal.vue'
 
 // Import shared UI components
 import AppSecondaryButton from '@/components/AppSecondaryButton.vue'
+
 import { storeToRefs } from 'pinia'
 
 const { productData } = useProductDataStore()
