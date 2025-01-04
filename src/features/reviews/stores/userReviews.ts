@@ -49,11 +49,7 @@ export const useUserReviewsStore = defineStore('userReviews', () => {
   }
 
   const sortReviews = () => {
-    if (activeFilter.value === 'all') {
-      filteredReviews.value = undefined
-      return
-    }
-
+    filteredReviews.value = undefined
     userReviews.value.sort((a, b) => {
       if (activeFilter.value === 'newest') {
         return b.date.getTime() - a.date.getTime()
