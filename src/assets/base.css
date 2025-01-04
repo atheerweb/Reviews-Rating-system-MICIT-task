@@ -1,26 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
+@font-face {
+  font-family: "Nunito";
+  src: url('./font/Nunito-VariableFont_wght.ttf');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  font-weight: normal;
+  @apply m-0 font-normal box-border;
 }
 
 body {
-  min-height: 100vh;
-  transition:
-    color 0.5s,
-    background-color 0.5s;
-  line-height: 1.6;
-  font-family:"Nunito",sans-serif;
-  font-size: 15px;
+  @apply min-h-screen transition-colors font-nunito leading-6 text-[.9375rem];
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

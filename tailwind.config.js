@@ -8,7 +8,10 @@ export default {
     extend: {
       colors: {
         opaque: 'rgba(0, 0, 0, 0.5)',
-      }
+      },
+      fontFamily: {
+        nunito: ['Nunito', 'sans-serif'],
+      },
     },
   },
   plugins: [],
