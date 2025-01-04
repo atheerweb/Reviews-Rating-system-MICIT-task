@@ -6,6 +6,7 @@ const props = withDefaults(
   defineProps<{
     readonly?: boolean
     name?: string
+    modelValue: number
   }>(),
   {
     readonly: false,
@@ -13,11 +14,15 @@ const props = withDefaults(
   },
 )
 
-const model = defineModel<number>({
-  default: 0,
-})
+const setDefaultValue = () => {
+  if (props.modelValue) {
+    value.value = props.modelValue
+  }
+}
 
 const { value, errorMessage } = useField<number>(() => props.name)
+
+setDefaultValue()
 
 const setFillColor = (star: number) => {
   return value.value >= star ? 'orange' : 'lightGray'
@@ -31,7 +36,7 @@ const update = (star: number) => {
 
 <template>
   <div>
-    <label :for="props.name" class="block">{{ props.name }}</label>
+    <label v-if="props.name" :for="props.name" class="block">{{ props.name }}</label>
     <v-icon
       v-for="n in 5"
       :key="n"
