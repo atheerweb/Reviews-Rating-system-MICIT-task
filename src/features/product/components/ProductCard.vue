@@ -5,7 +5,16 @@ defineProps<{
 </script>
 <template>
   <div id="product-card">
-    <img :src="image" alt="product image" width="311" height="311" title="product image" class="object-contain mx-auto" />
+    <img
+      :src="image"
+      alt="product image"
+      width="311"
+      height="311"
+      title="product image"
+      class="object-contain mx-auto"
+      fetchpriority="high"
+      loading="eager"
+    />
   </div>
 </template>
 
