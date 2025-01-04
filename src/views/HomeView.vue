@@ -16,14 +16,11 @@ import ReviewModal from '@/features/reviews/components/ReviewModal.vue'
 
 import { storeToRefs } from 'pinia'
 import type { UserReviewItem } from '@/features/reviews/types/userReview'
-import AppFilter from '@/components/AppFilter.vue'
-import AppFilterGroup from '@/components/AppFilterGroup.vue'
 import AppPagination from '@/components/AppPagination.vue'
 
 const { productData } = useProductDataStore()
 const store = useUserReviewsStore()
 const { userReviewsData, totalReviews, totalPages, currentPage } = storeToRefs(store)
-const { nextPage } = store
 const { image, ...productInfo } = productData
 </script>
 
@@ -73,7 +70,6 @@ const { image, ...productInfo } = productData
         </section>
       </section>
     </article>
-
   </main>
 </template>
 
