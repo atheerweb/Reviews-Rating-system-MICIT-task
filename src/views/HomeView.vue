@@ -1,4 +1,8 @@
 <script setup lang="ts">
+// Import Store data
+import { useUserReviewsStore } from '@/features/reviews/stores/userReviews'
+import { useProductDataStore } from '@/features/product/stores/product'
+
 // Import product-related components
 import ProductCard from '@/features/product/components/ProductCard.vue'
 import ProductData from '@/features/product/components/ProductData.vue'
@@ -11,30 +15,27 @@ import ReviewModal from '@/features/reviews/components/ReviewModal.vue'
 // Import shared UI components
 import AppSecondaryButton from '@/components/AppSecondaryButton.vue'
 
-// Mock product data object containing product details and review statistics
-const productData = {
-  title: 'Dr Crz Jacket',
-  category: 'leather jacket',
-  description:
-    'The \"DR CRZ Jacket\" is a stylish and versatile piece of outerwear designed to provide both fashion and functionality. Crafted with attention to detail The \"DR CRZ Jacket\" is a stylish and versatile piece of outerwear designed to provide both fashion and functionality. Crafted with attention to detail The \"DR CRZ Jacket\" is a stylish and versatile piece of outerwear designed to provide both fashion and functionality. Crafted with attention to detail The \"DR CRZ Jacket\" is a stylish and versatile piece of outerwear designed to provide both fashion and functionality. Crafted with attention to detail',
-  price: 69,
-  totalReviews: 5,
-  avgNumberReview: 4.5,
-}
+import { storeToRefs } from 'pinia'
+
+const { productData } = useProductDataStore()
+const store = useUserReviewsStore()
+const { userReviewsData } = storeToRefs(store)
+const { nextPage, totalReviews } = store
+const { image, ...productInfo } = productData
 </script>
 
 <template>
   <!-- Main container with responsive grid layout -->
-  <main class="grid grid-cols-12 gap-5">
+  <main id="product-container">
     <!-- Product image section -->
-    <aside class="col-span-12 lg:col-span-4">
-      <ProductCard image="/dr-crz-jacket.png" />
+    <aside id="product-image">
+      <ProductCard :image="image" />
     </aside>
     <!-- Product details and reviews section-->
-    <article class="col-span-12 lg:col-span-8">
+    <article id="product-details">
       <!-- Product information section -->
       <section>
-        <ProductData v-bind="productData" />
+        <ProductData v-bind="productInfo" :total-reviews="totalReviews" />
       </section>
 
       <!-- Reviews section -->
@@ -42,9 +43,9 @@ const productData = {
         <!-- Reviews header with title, counter, and action buttons -->
         <header id="reviews-header">
           <h4 class="text-lg font-bold flex-grow">
-            Reviews <span class="font-normal">({{ productData.totalReviews }})</span>
+            Reviews <span class="font-normal">({{ totalReviews }})</span>
           </h4>
-          <AppSecondaryButton>see more</AppSecondaryButton>
+          <AppSecondaryButton @click="nextPage">see more</AppSecondaryButton>
           <!-- Modal container -->
           <div id="reviews-modal-container">
             <ReviewModal />
@@ -58,7 +59,11 @@ const productData = {
 
         <!-- User reviews list -->
         <section id="user-reviews">
-          <UserReviews v-for="n in 5" :key="n" />
+          <UserReviews
+            v-for="userReview in userReviewsData"
+            :key="userReview.id"
+            v-bind="userReview"
+          />
         </section>
       </section>
     </article>
@@ -71,7 +76,7 @@ const productData = {
 }
 
 #reviews-filters {
-  @apply overflow-x-auto w-[calc(100vw-3rem)] lg:w-auto h-12 overflow-y-hidden py-2 whitespace-nowrap;
+  @apply overflow-x-auto w-[calc(100vw-3rem)] lg:w-auto h-14 overflow-y-hidden py-2 whitespace-nowrap;
 }
 
 #reviews-modal-container {
@@ -80,5 +85,17 @@ const productData = {
 
 #reviews-header {
   @apply flex items-center justify-between mt-10 mb-2 gap-5 flex-wrap;
+}
+
+#product-details {
+  @apply col-span-12 lg:col-span-8;
+}
+
+#product-image {
+  @apply col-span-12 lg:col-span-4;
+}
+
+#product-container {
+  @apply grid grid-cols-12 gap-5;
 }
 </style>
