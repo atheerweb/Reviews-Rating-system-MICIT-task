@@ -13,7 +13,7 @@ defineProps<UserReview>()
         <strong class="review-title">{{ name }}</strong>
         <p class="review-date">{{ date }}</p>
       </header>
-      <app-review-stars :model-value="rating" class="user-review-stars" readonly />
+      <app-review-stars :value="rating" class="user-review-stars" readonly />
       <p class="review-text">
         {{ review }}
       </p>

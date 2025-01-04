@@ -6,7 +6,7 @@ const props = withDefaults(
   defineProps<{
     readonly?: boolean
     name?: string
-    modelValue: number
+    value?: number
   }>(),
   {
     readonly: false,
@@ -15,8 +15,8 @@ const props = withDefaults(
 )
 
 const setDefaultValue = () => {
-  if (props.modelValue) {
-    value.value = props.modelValue
+  if (props.value) {
+    value.value = props.value
   }
 }
 
