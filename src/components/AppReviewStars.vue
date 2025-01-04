@@ -5,10 +5,11 @@ import AppErrorMsg from './AppErrorMsg.vue'
 const props = withDefaults(
   defineProps<{
     readonly?: boolean
-    name: string
+    name?: string
   }>(),
   {
     readonly: false,
+    name: '',
   },
 )
 

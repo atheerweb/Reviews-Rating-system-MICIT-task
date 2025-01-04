@@ -5,8 +5,12 @@ import { useUserReviewsStore } from '@/features/reviews/stores/userReviews'
 import AppTextField from '@/components/AppTextField.vue'
 import AppTextArea from '@/components/AppTextArea.vue'
 import { validationSchema } from '../schema'
+import { provide } from 'vue'
+import AppButton from '@/components/AppButton.vue'
+import AppSecondaryButton from '@/components/AppSecondaryButton.vue'
+import { toast } from 'vue3-toastify'
 
-const { defineField, resetForm, handleSubmit, values } = useForm({
+const { defineField, resetForm, handleSubmit, values, meta } = useForm({
   validationSchema,
 })
 const { addReview } = useUserReviewsStore()
@@ -14,9 +18,10 @@ const { addReview } = useUserReviewsStore()
 // Creates a typed schema for vee-validate
 
 const onSubmit = handleSubmit((values) => {
-  alert(JSON.stringify(values))
+  toast.success('Review submitted successfully')
   addReview(values)
   resetForm()
+  
 })
 </script>
 
@@ -32,5 +37,13 @@ const onSubmit = handleSubmit((values) => {
       placeholder="write your review here..."
       class="col-span-12"
     />
+
+    <!-- Action buttons -->
+    <div class="col-span-12">
+      <AppButton type="submit" form="review-form" :disabled="!meta.valid">
+        submit your review
+      </AppButton>
+      <AppSecondaryButton class="w-full"> cancel </AppSecondaryButton>
+    </div>
   </form>
 </template>

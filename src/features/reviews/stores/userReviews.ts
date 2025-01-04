@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { type UserReview } from '../types/userReview'
 import { paginate } from '@/utils/paginate'
 import { createRandomUserReview } from '../lib/createRandowUserReview'
+import { validationSchema } from '../schema'
 import { createFakerArray } from '@/utils/createFakerArray'
 
 export const useUserReviewsStore = defineStore('userReviews', () => {
@@ -18,8 +19,7 @@ export const useUserReviewsStore = defineStore('userReviews', () => {
     currentPage.value++
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const addReview = (review: any) => {
+  const addReview = (review: validationSchema) => {
     const userReview = structuredClone(toRaw(review))
     userReviews.value.unshift(userReview)
   }

@@ -39,12 +39,6 @@ const closeModal = () => {
 
         <!-- Slot for main modal content -->
         <slot name="body" />
-
-        <!-- Action buttons -->
-        <div @click="closeModal">
-          <AppButton type="submit" :form="formId"> submit your review </AppButton>
-          <AppSecondaryButton class="w-full"> cancel </AppSecondaryButton>
-        </div>
       </div>
     </section>
   </Transition>

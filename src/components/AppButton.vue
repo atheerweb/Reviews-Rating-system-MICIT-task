@@ -8,6 +8,6 @@
 
 <style scoped>
 .app-button {
-  @apply bg-zinc-800 lg:rounded-md lg:w-auto float-end text-white px-3 py-2 hover:bg-zinc-950 text-base rounded-full transition-colors w-full mt-1;
+  @apply bg-zinc-800 lg:rounded-md lg:w-auto float-end text-white px-3 py-2 hover:bg-zinc-950 text-base rounded-full transition-colors w-full mt-1 disabled:opacity-75 disabled:hover:bg-zinc-800;
 }
 </style>
