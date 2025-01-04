@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { provide } from 'vue';
+import { provide } from 'vue'
 
-const model = defineModel<string>({ default: '' })
+const model = defineModel<string | number>({ default: '' })
 
-const update = (filter: string) => {
+const update = (filter: string | number) => {
   model.value = filter
 }
 
 provide('buttonGroupContext', {
   selected: model,
-  update: (value: string) => update(value)
+  update: (value: string | number) => update(value),
 })
 </script>
 

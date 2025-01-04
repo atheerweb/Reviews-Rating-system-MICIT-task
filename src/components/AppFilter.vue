@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, inject, type Ref } from 'vue';
+import { computed, inject, type Ref } from 'vue'
 
-const props = defineProps<{ value: string }>()
+const props = defineProps<{ value: string | number }>()
 
 defineEmits<{ (e: 'activate'): void }>()
 
 const buttonGroup = inject<{
-  selected: Ref<string>;
-  update: (value: string) => void;
+  selected: Ref<string>
+  update: (value: string | number) => void
 }>('buttonGroupContext')
 
 const isActive = computed(() => {
@@ -16,7 +16,10 @@ const isActive = computed(() => {
 </script>
 
 <template>
-  <button :class="['filter-btn', { 'filter-btn--active': isActive }]" @click="buttonGroup!.update(props.value)">
+  <button
+    :class="['filter-btn', { 'filter-btn--active': isActive }]"
+    @click="buttonGroup!.update(props.value)"
+  >
     <slot />
   </button>
 </template>

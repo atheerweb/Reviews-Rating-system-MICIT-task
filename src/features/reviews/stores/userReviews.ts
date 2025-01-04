@@ -8,19 +8,27 @@ import { faker } from '@faker-js/faker'
 import type { IntRange } from '@/types/range'
 
 export const useUserReviewsStore = defineStore('userReviews', () => {
-  const totalReviews = computed(() => userReviews.value.length)
   const userReviewsFakeDB = createFakerArray<UserReviewItem>(200, createRandomUserReview)
-
   const userReviews = ref(userReviewsFakeDB)
+  const filteredReviews = ref<UserReviewItem[] | undefined>()
+  const arrToFiltered = computed(() => filteredReviews.value || userReviews.value)
   const currentPage = ref(1)
   const perPage = ref(5)
 
+  const totalPages = computed(() => Math.ceil(arrToFiltered.value.length / perPage.value))
+
+  const totalReviews = computed(() => userReviews.value.length)
+
   const userReviewsData = computed(() => {
-    return paginate<UserReviewItem>(userReviews.value, currentPage.value, perPage.value)
+    return paginate<UserReviewItem>(arrToFiltered.value, currentPage.value, perPage.value)
   })
 
-  const nextPage = () => {
-    currentPage.value++
+  const nextPage = (page: number) => {
+    currentPage.value = page
+  }
+
+  const restCurrentPage = () => {
+    currentPage.value = 1
   }
 
   const addReview = (review: UserReview) => {
@@ -30,25 +38,32 @@ export const useUserReviewsStore = defineStore('userReviews', () => {
   }
 
   const filterReviews = (rating: IntRange<1, 6>) => {
-    userReviews.value = userReviewsFakeDB.filter((review) => review.rating === rating)
+    currentPage.value = 1
+    filteredReviews.value = userReviews.value.filter((review) => review.rating === rating)
   }
 
   const sortReviews = (sortBy: 'newest' | 'oldest' | 'all') => {
     if (sortBy === 'all') {
-      userReviews.value = userReviewsFakeDB
+      filteredReviews.value = undefined
       return
     }
 
-    const sortedReviews = userReviewsFakeDB.sort((a, b) => {
+    userReviews.value.sort((a, b) => {
       if (sortBy === 'newest') {
         return b.date.getTime() - a.date.getTime()
       }
       return a.date.getTime() - b.date.getTime()
     })
-
-    userReviews.value = [...sortedReviews]
-    // console.log('sortReviews', userReviews.value)
   }
 
-  return { userReviewsData, nextPage, addReview, totalReviews, filterReviews, sortReviews }
+  return {
+    userReviewsData,
+    nextPage,
+    addReview,
+    totalReviews,
+    filterReviews,
+    sortReviews,
+    totalPages,
+    currentPage,
+  }
 })
