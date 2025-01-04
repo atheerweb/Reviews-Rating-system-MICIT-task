@@ -13,7 +13,7 @@ export const paginate = <T>(array: T[], currentPage: number = 1, pageSize: numbe
   if (pageSize < 1) {
     throw new Error('Page size must be greater than 0')
   }
-  
+
   // Calculate pagination bounds
   const startIndex = (currentPage - 1) * pageSize
 

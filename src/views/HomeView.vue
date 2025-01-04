@@ -13,14 +13,17 @@ import ReviewFilters from '@/features/reviews/components/ReviewFilters.vue'
 import ReviewModal from '@/features/reviews/components/ReviewModal.vue'
 
 // Import shared UI components
-import AppSecondaryButton from '@/components/AppSecondaryButton.vue'
 
 import { storeToRefs } from 'pinia'
+import type { UserReviewItem } from '@/features/reviews/types/userReview'
+import AppFilter from '@/components/AppFilter.vue'
+import AppFilterGroup from '@/components/AppFilterGroup.vue'
+import AppPagination from '@/components/AppPagination.vue'
 
 const { productData } = useProductDataStore()
 const store = useUserReviewsStore()
-const { userReviewsData } = storeToRefs(store)
-const { nextPage, totalReviews } = store
+const { userReviewsData, totalReviews, totalPages, currentPage } = storeToRefs(store)
+const { nextPage } = store
 const { image, ...productInfo } = productData
 </script>
 
@@ -45,7 +48,7 @@ const { image, ...productInfo } = productData
           <h4 id="reviews-title">
             Reviews <span class="font-normal">({{ totalReviews }})</span>
           </h4>
-          <AppSecondaryButton @click="nextPage">see more</AppSecondaryButton>
+
           <!-- Modal container -->
           <div id="reviews-modal-container">
             <ReviewModal />
@@ -58,15 +61,19 @@ const { image, ...productInfo } = productData
         </section>
 
         <!-- User reviews list -->
+
         <section id="user-reviews">
           <UserReviews
             v-for="userReview in userReviewsData"
             :key="userReview.id"
             v-bind="userReview"
           />
+
+          <AppPagination v-model="currentPage" :total-pages class="mx-auto mb-16 lg:mb-auto" />
         </section>
       </section>
     </article>
+    
   </main>
 </template>
 
@@ -99,7 +106,7 @@ const { image, ...productInfo } = productData
   @apply grid grid-cols-12 gap-5;
 }
 
-#reviews-title{
-  @apply text-lg font-bold flex-grow
+#reviews-title {
+  @apply text-lg font-bold flex-grow;
 }
 </style>
