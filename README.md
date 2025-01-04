@@ -44,5 +44,7 @@ Feature-based architecture is a design strategy that organizes code around busin
 
 
 #### Performance
+Initial SEO performance before improvements.
+![alt text](/readme/SEO-performance-initial.png)
 
 #### Testing

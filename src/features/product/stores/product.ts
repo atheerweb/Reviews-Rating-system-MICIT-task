@@ -9,7 +9,7 @@ export const useProductDataStore = defineStore('productDataStore', () => {
       'The \"DR CRZ Jacket\" is a stylish and versatile piece of outerwear designed to provide both fashion and functionality. Crafted with attention to detail The \"DR CRZ Jacket\" is a stylish and versatile piece of outerwear designed to provide both fashion and functionality. Crafted with attention to detail The \"DR CRZ Jacket\" is a stylish and versatile piece of outerwear designed to provide both fashion and functionality. Crafted with attention to detail The \"DR CRZ Jacket\" is a stylish and versatile piece of outerwear designed to provide both fashion and functionality. Crafted with attention to detail',
     price: 69,
     avgNumberReview: 4.5,
-    image: '/dr-crz-jacket.png',
+    image: '/dr-crz-jacket.webp',
   }
 
   return { productData }

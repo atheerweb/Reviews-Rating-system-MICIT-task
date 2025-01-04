@@ -1,17 +1,30 @@
 <script setup lang="ts">
 import AppReviewStars from '@/components/AppReviewStars.vue'
 import type { UserReviewItem } from '../types/userReview'
+import { computed } from 'vue'
 
 //  complex data types are not compiled by vue 3 script setup yet so I will have to write the types statically again https://github.com/vuejs/core/issues/8286 for now
-defineProps<{ image?: string; name: string; date: Date; review: string; rating: number }>()
+const props = defineProps<{
+  image?: string
+  name: string
+  date: Date
+  review: string
+  rating: number
+}>()
+
+const getImage = computed(() => props.image || '/Profile_avatar_placeholder_large.webp')
 </script>
 
 <template>
   <section class="user-review">
     <img
-      :src="image || '/Profile_avatar_placeholder_large.png'"
+      :src="getImage"
       alt="customer"
       class="user-image"
+      width="64"
+      height="64"
+      title="customer"
+      loading="lazy"
     />
     <section class="review-content">
       <header class="review-header">
@@ -43,12 +56,12 @@ defineProps<{ image?: string; name: string; date: Date; review: string; rating: 
   @apply block;
 }
 .review-date {
-  @apply text-gray-400;
+  @apply text-gray-500;
 }
 .user-review-stars {
   @apply mt-2 mb-1;
 }
 .review-text {
-  @apply text-gray-400;
+  @apply text-gray-500;
 }
 </style>

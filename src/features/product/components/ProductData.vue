@@ -20,7 +20,7 @@ defineProps<{
   </div>
   <h2 id="product-price">${{ price }}</h2>
 
-  <h4 id="product-description-title">Description</h4>
+  <h3 id="product-description-title">Description</h3>
   <p id="product-description">
     {{ description }}
   </p>
@@ -31,10 +31,10 @@ defineProps<{
   @apply mt-5 font-bold text-xl lg:text-2xl;
 }
 #product-category {
-  @apply text-gray-400 capitalize mt-1;
+  @apply text-gray-500 capitalize mt-1;
 }
 #product-description {
-  @apply text-gray-400;
+  @apply text-gray-500;
 }
 #product-description-title {
   @apply text-lg font-bold mt-10 mb-2;
@@ -46,6 +46,6 @@ defineProps<{
   @apply flex gap-1 items-center mt-2;
 }
 #product-reviews-stars {
-  @apply text-gray-400;
+  @apply text-gray-500;
 }
 </style>
