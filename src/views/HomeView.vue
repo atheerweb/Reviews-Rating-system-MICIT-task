@@ -64,9 +64,12 @@ const { image, ...productInfo } = productData
             :key="userReview.id"
             v-bind="userReview"
           />
+
+          <AppPagination v-model="currentPage" :total-pages class="mx-auto mb-24 lg:mb-0" />
         </section>
       </section>
     </article>
+
   </main>
 </template>
 
