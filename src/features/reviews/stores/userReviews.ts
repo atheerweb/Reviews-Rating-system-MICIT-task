@@ -1,4 +1,4 @@
-import { computed, ref, toRaw, unref } from 'vue'
+import { computed, ref, toRaw, unref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { type UserReview, type UserReviewItem } from '../types/userReview'
 import { paginate } from '@/utils/paginate'
@@ -13,7 +13,10 @@ export const useUserReviewsStore = defineStore('userReviews', () => {
   const filteredReviews = ref<UserReviewItem[] | undefined>()
   const arrToFiltered = computed(() => filteredReviews.value || userReviews.value)
   const currentPage = ref(1)
+
   const perPage = ref(5)
+  type starsRange = IntRange<1, 6>
+  const activeFilter = ref<'all' | 'newest' | 'oldest' | starsRange>('all')
 
   const totalPages = computed(() => Math.ceil(arrToFiltered.value.length / perPage.value))
 
@@ -26,7 +29,6 @@ export const useUserReviewsStore = defineStore('userReviews', () => {
   const nextPage = (page: number) => {
     currentPage.value = page
   }
-
   const restCurrentPage = () => {
     currentPage.value = 1
   }
@@ -35,35 +37,46 @@ export const useUserReviewsStore = defineStore('userReviews', () => {
     const formData = structuredClone(toRaw(review))
     const userReview = { id: faker.string.uuid(), date: new Date(), ...formData }
     userReviews.value.unshift(userReview)
+    restCurrentPage()
+    activeFilter.value = 'all'
   }
 
   const filterReviews = (rating: IntRange<1, 6>) => {
-    currentPage.value = 1
-    filteredReviews.value = userReviews.value.filter((review) => review.rating === rating)
+    restCurrentPage()
+    filteredReviews.value = userReviews.value.filter(
+      (review) => review.rating === activeFilter.value,
+    )
   }
 
-  const sortReviews = (sortBy: 'newest' | 'oldest' | 'all') => {
-    if (sortBy === 'all') {
+  const sortReviews = () => {
+    if (activeFilter.value === 'all') {
       filteredReviews.value = undefined
       return
     }
 
     userReviews.value.sort((a, b) => {
-      if (sortBy === 'newest') {
+      if (activeFilter.value === 'newest') {
         return b.date.getTime() - a.date.getTime()
       }
       return a.date.getTime() - b.date.getTime()
     })
   }
 
+  watch(activeFilter, () => {
+    if (typeof activeFilter.value === 'number') {
+      filterReviews(activeFilter.value)
+    } else {
+      sortReviews()
+    }
+  })
+
   return {
     userReviewsData,
     nextPage,
     addReview,
     totalReviews,
-    filterReviews,
-    sortReviews,
     totalPages,
     currentPage,
+    activeFilter,
   }
 })
