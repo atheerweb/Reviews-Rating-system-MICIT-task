@@ -2,6 +2,7 @@
 import AppReviewStars from '@/components/AppReviewStars.vue'
 import type { UserReviewItem } from '../types/userReview'
 import { computed } from 'vue'
+import { formatDate } from '@/utils/formatDate'
 
 //  complex data types are not compiled by vue 3 script setup yet so I will have to write the types statically again https://github.com/vuejs/core/issues/8286 for now
 const props = defineProps<{
@@ -29,7 +30,7 @@ const getImage = computed(() => props.image || '/Profile_avatar_placeholder_larg
     <section class="review-content">
       <header class="review-header">
         <strong class="review-title">{{ name }}</strong>
-        <p class="review-date">{{ date }}</p>
+        <p class="review-date">{{ formatDate(date) }}</p>
       </header>
       <app-review-stars :value="rating" class="user-review-stars" readonly />
       <p class="review-text">
