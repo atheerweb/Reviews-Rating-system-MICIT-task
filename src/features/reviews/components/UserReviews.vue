@@ -7,7 +7,11 @@ defineProps<UserReview>()
 
 <template>
   <section class="user-review">
-    <img :src="image" alt="customer" class="user-image" />
+    <img
+      :src="image || '/Profile_avatar_placeholder_large.png'"
+      alt="customer"
+      class="user-image"
+    />
     <section class="review-content">
       <header class="review-header">
         <strong class="review-title">{{ name }}</strong>

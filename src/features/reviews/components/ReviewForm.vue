@@ -18,10 +18,9 @@ const { addReview } = useUserReviewsStore()
 // Creates a typed schema for vee-validate
 
 const onSubmit = handleSubmit((values) => {
-  toast.success('Review submitted successfully')
   addReview(values)
+  toast.success('Review submitted successfully')
   resetForm()
-  
 })
 </script>
 

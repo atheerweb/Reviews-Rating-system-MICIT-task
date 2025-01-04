@@ -1,10 +1,10 @@
 import { computed, ref, toRaw, unref } from 'vue'
 import { defineStore } from 'pinia'
-import { type UserReview } from '../types/userReview'
+import { type SubmitUserReview, type UserReview } from '../types/userReview'
 import { paginate } from '@/utils/paginate'
 import { createRandomUserReview } from '../lib/createRandowUserReview'
-import { validationSchema } from '../schema'
 import { createFakerArray } from '@/utils/createFakerArray'
+import { faker } from '@faker-js/faker'
 
 export const useUserReviewsStore = defineStore('userReviews', () => {
   const userReviews = ref(createFakerArray<UserReview>(200, createRandomUserReview))
@@ -19,8 +19,9 @@ export const useUserReviewsStore = defineStore('userReviews', () => {
     currentPage.value++
   }
 
-  const addReview = (review: validationSchema) => {
-    const userReview = structuredClone(toRaw(review))
+  const addReview = (review: SubmitUserReview) => {
+    const formData = structuredClone(toRaw(review))
+    const userReview = { id: faker.string.uuid(), date: new Date(), ...formData }
     userReviews.value.unshift(userReview)
   }
 
