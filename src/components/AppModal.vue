@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, Transition } from 'vue'
+import { ref, toRef, Transition } from 'vue'
 import AppButton from './AppButton.vue'
 import AppSecondaryButton from './AppSecondaryButton.vue'
 
@@ -38,7 +38,7 @@ const closeModal = () => {
         <h4 id="modal-title">{{ title }}</h4>
 
         <!-- Slot for main modal content -->
-        <slot name="body" />
+        <slot name="body" :closeModal="closeModal" />
       </div>
     </section>
   </Transition>
