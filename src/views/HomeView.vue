@@ -42,7 +42,7 @@ const { image, ...productInfo } = productData
       <section>
         <!-- Reviews header with title, counter, and action buttons -->
         <header id="reviews-header">
-          <h4 class="text-lg font-bold flex-grow">
+          <h4 id="reviews-title">
             Reviews <span class="font-normal">({{ totalReviews }})</span>
           </h4>
           <AppSecondaryButton @click="nextPage">see more</AppSecondaryButton>
@@ -97,5 +97,9 @@ const { image, ...productInfo } = productData
 
 #product-container {
   @apply grid grid-cols-12 gap-5;
+}
+
+#reviews-title{
+  @apply text-lg font-bold flex-grow
 }
 </style>
