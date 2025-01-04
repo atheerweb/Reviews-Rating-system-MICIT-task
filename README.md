@@ -33,7 +33,7 @@ Feature-based architecture is a design strategy that organizes code around busin
 
 #### Git workflow
 
-![alt](/readme/git-workflow.png)
+![alt](/readme/git-workflow.webp)
 
 1. Create a “branch” (version)
 2. Commit the changes
@@ -45,7 +45,7 @@ Feature-based architecture is a design strategy that organizes code around busin
 
 #### Performance
 Initial SEO performance before improvements.
-![alt text](/readme/SEO-performance-initial.png)
+![alt text](/readme/SEO-performance-initial.webp)
 
 The current score after working on the following points:
 
@@ -54,5 +54,5 @@ The current score after working on the following points:
 3. SEO mainly adding meta tags for the project
 
 
-![alt text](/readme/SEO-performance-improved.png)
+![alt text](/readme/SEO-performance-improved.webp)
 #### Testing
