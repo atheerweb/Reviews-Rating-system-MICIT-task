@@ -8,8 +8,8 @@ import { faker } from '@faker-js/faker'
 import type { IntRange } from '@/types/range'
 
 export const useUserReviewsStore = defineStore('userReviews', () => {
-  const totalReviews = 200
-  const userReviewsFakeDB = createFakerArray<UserReviewItem>(totalReviews, createRandomUserReview)
+  const totalReviews = computed(() => userReviews.value.length)
+  const userReviewsFakeDB = createFakerArray<UserReviewItem>(200, createRandomUserReview)
 
   const userReviews = ref(userReviewsFakeDB)
   const currentPage = ref(1)

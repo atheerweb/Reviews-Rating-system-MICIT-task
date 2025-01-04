@@ -16,11 +16,12 @@ import ReviewModal from '@/features/reviews/components/ReviewModal.vue'
 import AppSecondaryButton from '@/components/AppSecondaryButton.vue'
 
 import { storeToRefs } from 'pinia'
+import type { UserReviewItem } from '@/features/reviews/types/userReview'
 
 const { productData } = useProductDataStore()
 const store = useUserReviewsStore()
-const { userReviewsData } = storeToRefs(store)
-const { nextPage, totalReviews } = store
+const { userReviewsData , totalReviews } = storeToRefs(store)
+const { nextPage } = store
 const { image, ...productInfo } = productData
 </script>
 
@@ -58,6 +59,7 @@ const { image, ...productInfo } = productData
         </section>
 
         <!-- User reviews list -->
+
         <section id="user-reviews">
           <UserReviews
             v-for="userReview in userReviewsData"
