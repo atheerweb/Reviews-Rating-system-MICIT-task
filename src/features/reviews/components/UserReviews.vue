@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import AppReviewStars from '@/components/AppReviewStars.vue'
-import type { UserReview } from '../types/userReview'
+import type { UserReviewItem } from '../types/userReview'
 
-defineProps<UserReview>()
+//  complex data types are not compiled by vue 3 script setup yet so I will have to write the types statically again https://github.com/vuejs/core/issues/8286 for now
+defineProps<{ image?: string; name: string; date: Date; review: string; rating: number }>()
 </script>
 
 <template>

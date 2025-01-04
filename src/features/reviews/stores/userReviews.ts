@@ -5,10 +5,13 @@ import { paginate } from '@/utils/paginate'
 import { createRandomUserReview } from '../lib/createRandowUserReview'
 import { createFakerArray } from '@/utils/createFakerArray'
 import { faker } from '@faker-js/faker'
+import type { IntRange } from '@/types/range'
 
 export const useUserReviewsStore = defineStore('userReviews', () => {
   const totalReviews = 200
-  const userReviews = ref(createFakerArray<UserReviewItem>(totalReviews, createRandomUserReview))
+  const userReviewsFakeDB = createFakerArray<UserReviewItem>(totalReviews, createRandomUserReview)
+
+  const userReviews = ref(userReviewsFakeDB)
   const currentPage = ref(1)
   const perPage = ref(5)
 
@@ -26,5 +29,26 @@ export const useUserReviewsStore = defineStore('userReviews', () => {
     userReviews.value.unshift(userReview)
   }
 
-  return { userReviewsData, nextPage, addReview, totalReviews }
+  const filterReviews = (rating: IntRange<1, 6>) => {
+    userReviews.value = userReviewsFakeDB.filter((review) => review.rating === rating)
+  }
+
+  const sortReviews = (sortBy: 'newest' | 'oldest' | 'all') => {
+    if (sortBy === 'all') {
+      userReviews.value = userReviewsFakeDB
+      return
+    }
+
+    const sortedReviews = userReviewsFakeDB.sort((a, b) => {
+      if (sortBy === 'newest') {
+        return b.date.getTime() - a.date.getTime()
+      }
+      return a.date.getTime() - b.date.getTime()
+    })
+
+    userReviews.value = [...sortedReviews]
+    // console.log('sortReviews', userReviews.value)
+  }
+
+  return { userReviewsData, nextPage, addReview, totalReviews, filterReviews, sortReviews }
 })

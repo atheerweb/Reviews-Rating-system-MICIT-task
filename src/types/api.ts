@@ -1,4 +1,4 @@
-export type BaseEntity = {
+export interface BaseEntity {
   id: string;
   date: Date;
 };

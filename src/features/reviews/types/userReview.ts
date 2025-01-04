@@ -1,4 +1,4 @@
-import type { Entity } from "@/types/api"
+import type { Entity } from '@/types/api'
 
 export interface UserReview {
   image?: string
@@ -9,4 +9,3 @@ export interface UserReview {
 
 
 export type UserReviewItem = Entity<UserReview>
-
