@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, Transition } from 'vue'
+import { ref, toRef, Transition } from 'vue'
 import AppButton from './AppButton.vue'
 import AppSecondaryButton from './AppSecondaryButton.vue'
 
 defineProps<{
   title: string
+  formId?: string
 }>()
 
 const isVisible = ref(false)
@@ -26,27 +27,21 @@ const closeModal = () => {
   </div>
 
   <Transition name="modal">
-
     <!-- Modal overlay - only shown when modal is true -->
     <section v-show="isVisible" id="modal-wrapper">
       <!-- Modal content card -->
       <div id="modal-card">
         <!-- Close icon in top-right corner -->
-        <v-icon name="io-close" id="close-icon" @click="closeModal()" />
+        <v-icon name="io-close" id="close-icon" @click="closeModal" />
 
         <!-- Modal title from props -->
         <h4 id="modal-title">{{ title }}</h4>
 
         <!-- Slot for main modal content -->
-        <slot name="body" />
-
-        <!-- Action buttons -->
-        <AppButton @submit="$emit('submit')"> submit your review </AppButton>
-        <AppSecondaryButton @click="closeModal()"> cancel </AppSecondaryButton>
+        <slot name="body" :closeModal="closeModal" />
       </div>
     </section>
   </Transition>
-
 </template>
 
 <style scoped>
@@ -67,15 +62,13 @@ const closeModal = () => {
   @apply fixed w-full h-full top-0 left-0 bg-opaque;
 }
 
-
 .modal-enter-active,
 .modal-leave-active {
-  @apply transition-all duration-500
+  @apply transition-all duration-500;
 }
 
 .modal-enter-from,
 .modal-leave-to {
-
   @apply opacity-0 blur-lg;
 }
 </style>

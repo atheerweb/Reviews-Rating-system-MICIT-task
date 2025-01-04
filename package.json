@@ -16,6 +16,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vee-validate/yup": "^4.15.0",
     "@vueuse/core": "^12.2.0",
     "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^2.3.0",
