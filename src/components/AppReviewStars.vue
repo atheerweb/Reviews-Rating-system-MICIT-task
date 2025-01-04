@@ -45,7 +45,7 @@ const update = (star: number) => {
       @click="update(n)"
       :class="['review-star', { 'review-star--readonly': props.readonly }]"
     />
-    <AppErrorMsg v-show="errorMessage" :errorMessage />
+    <AppErrorMsg v-if="!readonly" v-show="errorMessage" :errorMessage />
   </div>
 </template>
 
