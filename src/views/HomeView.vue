@@ -20,7 +20,7 @@ import { storeToRefs } from 'pinia'
 const { productData } = useProductDataStore()
 const store = useUserReviewsStore()
 const { userReviewsData } = storeToRefs(store)
-const { nextPage } = store
+const { nextPage, totalReviews } = store
 const { image, ...productInfo } = productData
 </script>
 
@@ -35,7 +35,7 @@ const { image, ...productInfo } = productData
     <article id="product-details">
       <!-- Product information section -->
       <section>
-        <ProductData v-bind="productInfo" />
+        <ProductData v-bind="productInfo" :total-reviews="totalReviews" />
       </section>
 
       <!-- Reviews section -->
@@ -43,7 +43,7 @@ const { image, ...productInfo } = productData
         <!-- Reviews header with title, counter, and action buttons -->
         <header id="reviews-header">
           <h4 class="text-lg font-bold flex-grow">
-            Reviews <span class="font-normal">({{ productData.totalReviews }})</span>
+            Reviews <span class="font-normal">({{ totalReviews }})</span>
           </h4>
           <AppSecondaryButton @click="nextPage">see more</AppSecondaryButton>
           <!-- Modal container -->
