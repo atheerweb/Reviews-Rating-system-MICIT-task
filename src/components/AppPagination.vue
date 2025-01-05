@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { comma } from 'postcss/lib/list'
 import { computed } from 'vue'
 
 const props = defineProps<{
@@ -47,19 +46,19 @@ const isActiveColor = (number: number) => {
         </button>
       </li>
       <li>
-        <a :class="['pagination-button', isActiveColor(startNumber)]" @click="update(startNumber)">
+        <button :class="['pagination-button', isActiveColor(startNumber)]" @click="update(startNumber)">
           {{ startNumber }}
-        </a>
+        </button>
       </li>
 
       <li>
-        <a class="pagination-button">...</a>
+        <button class="pagination-button">...</button>
       </li>
 
       <li>
-        <a :class="['pagination-button', isActiveColor(totalPages)]" @click="update(totalPages)">
+        <button :class="['pagination-button', isActiveColor(totalPages)]" @click="update(totalPages)">
           {{ totalPages }}
-        </a>
+        </button>
       </li>
 
       <li>

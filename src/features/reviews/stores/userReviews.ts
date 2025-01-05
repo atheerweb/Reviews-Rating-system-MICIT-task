@@ -7,111 +7,131 @@ import { paginate } from '@/utils/paginate'
 import { createRandomUserReview } from '../lib/createRandowUserReview'
 import { createFakerArray } from '@/utils/createFakerArray'
 import { faker } from '@faker-js/faker'
-import type { IntRange } from '@/types/range'
+import type { StarsRange } from '../types/StarsRange'
 
 /**
- * Store for managing user reviews with pagination, filtering, and sorting capabilities
+ * Pinia store for managing user reviews with features including:
+ * - Pagination
+ * - Filtering by star rating
+ * - Sorting by date
+ * - Adding new reviews
  */
 export const useUserReviewsStore = defineStore('userReviews', () => {
-  // Initialize store with mock data
+  // Initialize store with 200 mock review items
   const userReviews = ref(createFakerArray<UserReviewItem>(200, createRandomUserReview))
 
-  // State for filtered reviews and pagination
+  // Track filtered reviews separately from main reviews array
+  // undefined means no filters are active
   const filteredReviews = ref<UserReviewItem[] | undefined>()
+
+  // Pagination state
   const currentPage = ref(1)
   const perPage = ref(5)
 
-  // Type definition for star ratings (1-5)
-  type starsRange = IntRange<1, 6>
+  // Tracks current active filter:
+  // - 'all': Show all reviews
+  // - 'newest': Sort by most recent
+  // - 'oldest': Sort by oldest
+  // - number (1-5): Filter by star rating
+  const activeFilter = ref<'all' | 'newest' | 'oldest' | StarsRange>('all')
 
-  // Filter state can be 'all', 'newest', 'oldest', or a star rating
-  const activeFilter = ref<'all' | 'newest' | 'oldest' | starsRange>('all')
-
-  // Computed property to get either filtered or all reviews
+  // Returns either filtered reviews if filters are active, or all reviews if not
   const arrToFiltered = computed(() => filteredReviews.value || userReviews.value)
 
-  // Calculate total pages based on current filtered/total items
+  // Calculate total number of pages based on current dataset and items per page
   const totalPages = computed(() => Math.ceil(arrToFiltered.value.length / perPage.value))
 
-  // Get total number of reviews
+  // Get total number of reviews in the store
   const totalReviews = computed(() => userReviews.value.length)
 
-  // Get paginated data based on current page and items per page
+  // Get current page of reviews based on pagination settings
   const userReviewsData = computed(() => {
     return paginate<UserReviewItem>(arrToFiltered.value, currentPage.value, perPage.value)
   })
-  
 
   /**
-   * Resets pagination to first page
+   * Helper function to reset pagination to first page
+   * Called when filters change or new reviews are added
    */
-  const restCurrentPage = () => {
+  const resetCurrentPage = () => {
     currentPage.value = 1
   }
 
   /**
    * Adds a new review to the store
-   * @param review - The review object to add
+   * @param review - The review object to add (without id or date)
    */
   const addReview = (review: UserReview) => {
-    // Create deep clone of review data
+    // Create deep clone to avoid modifying original data
     const formData = structuredClone(toRaw(review))
-    // Add unique ID and current date
+
+    // Create complete review object with generated ID and current timestamp
     const userReview = {
       id: faker.string.uuid(),
       date: new Date(),
       ...formData,
     }
-    // Add to beginning of array
-    userReviews.value.unshift(userReview)
-    // Reset pagination and filters
-    restCurrentPage()
+
+    // Reset to first page and clear filters
+    resetCurrentPage()
     activeFilter.value = 'all'
+
+    // Add new review to beginning of array
+    userReviews.value.unshift(userReview)
   }
 
   /**
-   * Filters reviews by star rating
+   * Filters reviews array by star rating
    * @param rating - Star rating to filter by (1-5)
    */
-  const filterReviews = (rating: IntRange<1, 6>) => {
-    restCurrentPage()
+  const filterReviews = () => {
     filteredReviews.value = userReviews.value.filter(
       (review) => review.rating === activeFilter.value,
     )
   }
 
   /**
-   * Sorts reviews by date based on activeFilter
-   * 'newest' - most recent first
-   * 'oldest' - oldest first
+   * Sorts reviews array by date based on activeFilter value
+   * Called when activeFilter is set to 'newest' or 'oldest'
    */
   const sortReviews = () => {
-    // Clear filtered reviews
-    filteredReviews.value = undefined
-    // Sort array based on date
-    userReviews.value.sort((a, b) => {
+    // Create new array to avoid modifying original
+    filteredReviews.value = [...userReviews.value]
+
+    // Sort array in place based on dates
+    filteredReviews.value.sort((a, b) => {
       if (activeFilter.value === 'newest') {
-        return b.date.getTime() - a.date.getTime()
+        return b.date.getTime() - a.date.getTime() // Most recent first
       }
-      return a.date.getTime() - b.date.getTime()
+      return a.date.getTime() - b.date.getTime() // Oldest first
     })
   }
 
-  // Watch for filter changes and apply appropriate filtering/sorting
+  // Watch for changes to activeFilter and apply appropriate filtering/sorting
   watch(activeFilter, () => {
+    resetCurrentPage() // Reset to first page when filter changes
+
+    if (activeFilter.value === 'all') {
+      // Clear filters by setting filteredReviews to undefined
+      filteredReviews.value = undefined
+      return
+    }
+
     if (typeof activeFilter.value === 'number') {
-      filterReviews(activeFilter.value)
+      // If filter is a number, apply star rating filter
+      filterReviews()
     } else {
+      // Otherwise sort by date (newest/oldest)
       sortReviews()
     }
   })
 
-  // Export store properties and methods
+  // Export public store interface
   return {
-    userReviewsData, // Paginated review data
-    addReview, // Add new review
-    totalReviews, // Total review count
-    totalPages, // Total pages count
+    userReviewsData, // Paginated review data for current page
+    addReview, // Method to add new reviews
+    totalReviews, // Total number of reviews
+    totalPages, // Total number of pages
     currentPage, // Current page number
     activeFilter, // Current active filter
   }

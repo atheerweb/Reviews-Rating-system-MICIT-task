@@ -57,7 +57,7 @@ const { image, ...productInfo } = productData
           <ReviewFilters />
         </section>
 
-        <!-- User reviews list -->
+        <!-- User reviews list with pagination -->
 
         <section id="user-reviews">
           <UserReviews
@@ -66,7 +66,7 @@ const { image, ...productInfo } = productData
             v-bind="userReview"
           />
 
-          <AppPagination v-model="currentPage" :total-pages class="mx-auto mb-24 lg:mb-0" />
+          <AppPagination v-model="currentPage" :total-pages id="reviews-pagination" />
         </section>
       </section>
     </article>
@@ -104,5 +104,9 @@ const { image, ...productInfo } = productData
 
 #reviews-title {
   @apply text-lg font-bold flex-grow;
+}
+
+#reviews-pagination {
+  @apply mx-auto mb-24 lg:mb-0;
 }
 </style>
